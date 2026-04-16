@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAP | Cybersecurity Automation Platform</title>
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar glass-panel">
+            <div class="logo-container">
+                <div class="logo-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h1 class="logo-text">CAP<span class="dot">.</span></h1>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-tab="dashboard">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="scanner">
+                    <i class="fa-solid fa-network-wired"></i>
+                    <span>Network Scanner</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="ai-analyzer">
+                    <i class="fa-solid fa-brain"></i>
+                    <span>URL Phishing AI</span>
+                </a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="status-dot"></span> System Online
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Header section -->
+            <header class="top-header">
+                <div class="header-title">
+                    <h2 id="page-title">Security Dashboard</h2>
+                    <p class="subtitle">Real-time threat monitoring and automation</p>
+                </div>
+                <div class="header-actions">
+                    <button class="action-btn" onclick="fetchData()"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+                    <div class="avatar-circle">A</div>
+                </div>
+            </header>
+
+            <!-- DASHBOARD TAB -->
+            <section id="dashboard" class="tab-content active-tab">
+                <div class="stats-grid">
+                    <div class="stat-card glass-panel">
+                        <div class="stat-icon alert-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div class="stat-info">
+                            <h3>Active Alerts</h3>
+                            <h2 id="active-alerts-count">0</h2>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-icon scan-icon"><i class="fa-solid fa-tower-broadcast"></i></div>
+                        <div class="stat-info">
+                            <h3>Recent Scans</h3>
+                            <h2 id="recent-scans-count">0</h2>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-panel">
+                        <div class="stat-icon ai-icon"><i class="fa-solid fa-shield-virus"></i></div>
+                        <div class="stat-info">
+                            <h3>System Health</h3>
+                            <h2 class="text-gradient">Optimal</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alerts-section glass-panel mt-4">
+                    <div class="section-header">
+                        <h3><i class="fa-solid fa-bell"></i> Security Alerts</h3>
+                        <span class="badge" id="alert-badge">0 New</span>
+                    </div>
+                    <div class="table-container">
+                        <table id="alerts-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Type</th>
+                                    <th>Severity</th>
+                                    <th>Description</th>
+                                    <th>Time</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="alerts-body">
+                                <tr><td colspan="6" class="text-center">Loading alerts...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCANNER TAB -->
+            <section id="scanner" class="tab-content glass-panel">
+                <div class="section-header">
+                    <h3><i class="fa-solid fa-network-wired"></i> Run Network Scan</h3>
+                </div>
+                <div class="form-container">
+                    <div class="input-group">
+                        <input type="text" id="scan-target" placeholder="Enter IP or Domain (e.g., 192.168.1.1)" autocomplete="off">
+                        <button class="glow-btn" id="run-scan-btn" onclick="runScan()">Initialize Scan</button>
+                    </div>
+                </div>
+                
+                <div class="scan-results mt-4" id="scan-results-container" style="display: none;">
+                    <h4><i class="fa-solid fa-terminal"></i> Scan Results</h4>
+                    <pre class="terminal-output" id="scan-output-text">Awaiting input...</pre>
+                </div>
+                
+                <div class="mt-4">
+                    <h4>Scan History</h4>
+                    <div class="table-container">
+                        <table id="scans-table">
+                            <thead>
+                                <tr>
+                                    <th>Target</th>
+                                    <th>Status</th>
+                                    <th>Time</th>
+                                    <th>Open Ports</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scans-body">
+                                <tr><td colspan="4" class="text-center">No scans found.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI ANALYZER TAB -->
+            <section id="ai-analyzer" class="tab-content glass-panel">
+                <div class="section-header">
+                    <h3><i class="fa-solid fa-brain"></i> AI Phishing Detection</h3>
+                    <p class="section-desc">Analyze URLs using our machine learning model.</p>
+                </div>
+                <div class="form-container mt-2">
+                    <div class="input-group">
+                        <input type="url" id="ai-url-target" placeholder="Enter URL to analyze (e.g., http://suspect-site.com)" autocomplete="off">
+                        <button class="glow-btn ai-btn" id="run-ai-btn" onclick="analyzeUrl()"><i class="fa-solid fa-wand-magic-sparkles"></i> Analyze</button>
+                    </div>
+                </div>
+
+                <div class="ai-results mt-4 hidden" id="ai-results-container">
+                    <div class="result-card">
+                        <div class="result-header" id="ai-result-header">
+                            <i class="fa-solid fa-circle-check"></i> Analysis Complete
+                        </div>
+                        <div class="result-body">
+                            <div class="gauge-container">
+                                <div class="risk-score">
+                                    <span id="ai-risk-score">0.00</span>
+                                </div>
+                                <span>Risk Score</span>
+                            </div>
+                            <div class="result-details">
+                                <p><strong>Target:</strong> <span id="ai-target-disp"></span></p>
+                                <p><strong>Verdict:</strong> <span id="ai-verdict" class="verdict-badge">Safe</span></p>
+                                <p><strong>Model:</strong> <span id="ai-model-version">N/A</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
