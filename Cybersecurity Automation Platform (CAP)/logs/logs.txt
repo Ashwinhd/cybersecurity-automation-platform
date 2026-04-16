@@ -1,0 +1,6 @@
+=== Cybersecurity Automation Platform (CAP) System Logs ===
+[2026-04-12 14:00:00] SYSTEM INITIALIZATION STARTED
+[2026-04-12 14:00:02] Database Connection OK (MongoDB: cap_db)
+[2026-04-12 14:00:05] Loaded AI Phishing Model [v1.0-rf] successfully
+[2026-04-12 14:00:10] Backend API Server listening on port 5000
+[2026-04-12 14:00:15] SYSTEM ONLINE

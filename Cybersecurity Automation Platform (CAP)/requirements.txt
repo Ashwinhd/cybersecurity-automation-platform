@@ -1,0 +1,12 @@
+flask
+flask-cors
+requests
+scapy
+pandas
+numpy
+scikit-learn
+joblib
+pymongo
+python-nmap
+dnspython
+python-dotenv
